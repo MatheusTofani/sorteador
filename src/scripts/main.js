@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (numeroMax > 1 && numeroMax < 1000) {
             document.getElementById('resultadoRes').innerText = numeroAle;
-            document.querySelector('.resultado').style.display = 'block';
+            document.querySelector('.resultado').style.display = 'flex';
             document.getElementById('numberInput').value = "";
         } 
         if(numeroMax < 2) {
