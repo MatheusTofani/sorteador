@@ -1,30 +1,40 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('form').addEventListener('submit', function (e) {
-        e.preventDefault();
+    const buttons = document.querySelectorAll('[data-tab-button]');
+    const questions = document.querySelectorAll('[data-faq-question]');
 
-        let numeroMax = document.getElementById('numberInput').value;
-        numeroMax = parseInt(numeroMax);
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function (botao) {
+            const abaAlvo = botao.target.dataset.tabButton;
+            hideAbas();
+            const aba = document.querySelector(`[data-tab-id=${abaAlvo}]`);
+            aba.classList.add('shows__list--is-active');
+            removeActive();
+            botao.target.classList.add('shows__tabs__button--is-active');
+        });
+    }
 
-        let numeroAle = Math.random() * numeroMax;
-        numeroAle = Math.floor(numeroAle + 1);
+    for (let i = 0; i < questions.length; i++) {
+        questions[i].addEventListener('click', openOrExit)
+    }
+});
 
 
-        if (numeroMax > 1 && numeroMax < 1000) {
-            document.getElementById('resultadoRes').innerText = numeroAle;
-            document.querySelector('.resultado').style.display = 'flex';
-            document.getElementById('numberInput').value = "";
-        } 
-        if(numeroMax < 2) {
-            document.querySelector('.menError').style.display = 'block';
-            document.querySelector('.resultado').style.display = 'none';
-        } else {
-            document.querySelector('.menError').style.display = 'none';
-        }
-        if (numeroMax > 999){
-            document.querySelector('.menError2').style.display = 'block';
-            document.querySelector('.resultado').style.display = 'none';
-        } else {
-            document.querySelector('.menError2').style.display = 'none';
-        }
-    })
-})
+function openOrExit(elemento){
+    const classe = 'faq__questions__item--is--open';
+    const elementoPai = elemento.target.parentNode;
+    elementoPai.classList.toggle(classe);
+}
+
+function removeActive() {
+    const buttons = document.querySelectorAll('[data-tab-button]');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('shows__tabs__button--is-active');
+    }
+}
+
+function hideAbas() {
+    const tabsContainer = document.querySelectorAll('[data-tab-id]');
+    for (let i = 0; i < tabsContainer.length; i++) {
+        tabsContainer[i].classList.remove('shows__list--is-active');
+    }
+}
